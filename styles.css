@@ -3,8 +3,18 @@
     padding-right: 6vw;
 }
 
+.podcast {
+    border: 2px rgb(150, 0, 0) solid;
+    margin: -1px;
+}
+
 h1 {
     padding: 1vw 1vw 8vw 6vw;
+}
+
+h1 img {
+    padding: 0;
+    margin: 0;
 }
 
 .date {
@@ -21,7 +31,7 @@ h2 {
 
 .listen {
     padding: 0vw 0vw 12vw 0vw;
-    color: #5800FF;
+    color: #00c832;
 }
 
 .listen img {
@@ -32,22 +42,22 @@ a {
     text-decoration: none;
     padding: 0;
     user-select: none;
-    color: #5800FF;
+    color: #009E28;
 }
 
 a.link {
     text-decoration: none;
-    color: #5800FF;
+    color: #009E28;
 }
 
 a:focus {
     outline: none !important;
-    color: #5800FF;
+    color: #009E28;
 }
 
 a:visited {
     text-decoration: none;
-    color: #5800FF;
+    color: #009E28;
 }
 
 .audio {

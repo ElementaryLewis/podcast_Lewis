@@ -14,7 +14,7 @@ if ($_GET["id"] > count($podcast)) {
     $link = "index.php";
     $home = "Go to main page";
 } else {
-    $title = "Podcast";
+    $title = 'Iconic <img src="./letter_m.png">ario Musics';
     $controls = "controls";
 }
 
@@ -31,26 +31,26 @@ if ($_GET["id"] > count($podcast)) {
 </head>
 
 <body>
-    <h1 class="error">
-        <?php
-        echo $error;
-        ?>
-    </h1>
-    <h2 class="home">
-        <a href=<?php
-        echo $link;
-        ?>>
-        <?php
-        echo $home;
-        ?>
-        </a>
-    </h2>
     <h1>
         <?php
         echo $title;
         ?>
     </h1>
     <section class="podcast">
+        <h1 class="error">
+            <?php
+            echo $error;
+            ?>
+        </h1>
+        <h2 class="home">
+            <a href=<?php
+            echo $link;
+            ?>>
+        <?php
+        echo $home;
+        ?>
+            </a>
+        </h2>
         <p class="date">
             <?php
             include 'vars.php';
@@ -80,7 +80,6 @@ if ($_GET["id"] > count($podcast)) {
             ?>
         </p>
     </section>
-    <script src="./script.js"></script>
 </body>
 
 </html>
