@@ -1,0 +1,55 @@
+* {
+    padding-left: 3vw;
+    width: 60vw;
+}
+
+h1 {
+    padding: 1vw 1vw 8vw 6vw;
+}
+
+.date {
+    color: rgb(120, 120, 120);
+}
+
+h2 {
+    font-size: large;
+}
+
+.descrip {
+    color: rgb(80, 80, 80);
+}
+
+.listen {
+    padding: 0vw 0vw 12vw 0vw;
+    color: #5800FF;
+}
+
+.listen img {
+    width: 3%;
+}
+
+a {
+    text-decoration: none;
+    padding: 0;
+    user-select: none;
+    color: #5800FF;
+}
+
+a.link {
+    text-decoration: none;
+    color: #5800FF;
+}
+
+a:focus {
+    outline: none !important;
+    color: #5800FF;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #5800FF;
+}
+
+.audio {
+    padding: 0vw;
+}
