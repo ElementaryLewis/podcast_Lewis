@@ -1,6 +1,6 @@
 * {
     padding-left: 3vw;
-    width: 60vw;
+    padding-right: 6vw;
 }
 
 h1 {
@@ -25,7 +25,7 @@ h2 {
 }
 
 .listen img {
-    width: 3%;
+    padding-right: 1vw;
 }
 
 a {
@@ -52,4 +52,18 @@ a:visited {
 
 .audio {
     padding: 0vw;
+}
+
+.error {
+    margin: auto;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+}
+
+.home {
+    text-align: center;
+    justify-content: center;
+    font-size: xx-large;
+    padding: 0;
 }
