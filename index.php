@@ -9,7 +9,9 @@
 </head>
 
 <body>
-  <h1>Iconic <img src="./letter_m.png">ario Musics</h1>
+  <a href="index.php" class="index">
+    <h1>Iconic <img src="./letter_m.png">ario Musics</h1>
+  </a>
   <!-- N° 1 -->
   <section class="podcast">
     <h2 class="title">

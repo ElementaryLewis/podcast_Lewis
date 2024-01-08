@@ -17,6 +17,28 @@ h1 img {
     margin: 0;
 }
 
+.index {
+    text-decoration: none;
+    padding: 0;
+    user-select: none;
+    color: black;
+}
+
+.index:link {
+    text-decoration: none;
+    color: black;
+}
+
+.index:focus {
+    outline: none !important;
+    color: black;
+}
+
+.index:visited {
+    text-decoration: none;
+    color: black;
+}
+
 .date {
     color: rgb(120, 120, 120);
 }
@@ -38,24 +60,24 @@ h2 {
     padding-right: 1vw;
 }
 
-a {
+.listen {
     text-decoration: none;
     padding: 0;
     user-select: none;
     color: #009E28;
 }
 
-a.link {
+.listen:link {
     text-decoration: none;
     color: #009E28;
 }
 
-a:focus {
+.listen:focus {
     outline: none !important;
     color: #009E28;
 }
 
-a:visited {
+.listen:visited {
     text-decoration: none;
     color: #009E28;
 }

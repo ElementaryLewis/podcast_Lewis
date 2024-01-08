@@ -31,11 +31,11 @@ if ($_GET["id"] > count($podcast)) {
 </head>
 
 <body>
-    <h1>
+    <a href="index.php" class="index"><h1>
         <?php
         echo $title;
         ?>
-    </h1>
+    </h1></a>
     <section class="podcast">
         <h1 class="error">
             <?php
