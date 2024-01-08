@@ -53,31 +53,31 @@ h2 {
 
 .listen {
     padding: 0vw 0vw 12vw 0vw;
-    color: #00c832;
+    color: #009E28;
 }
 
 .listen img {
     padding-right: 1vw;
 }
 
-.listen {
+.listen a {
     text-decoration: none;
     padding: 0;
     user-select: none;
     color: #009E28;
 }
 
-.listen:link {
+.listen a:link {
     text-decoration: none;
     color: #009E28;
 }
 
-.listen:focus {
+.listen a:focus {
     outline: none !important;
     color: #009E28;
 }
 
-.listen:visited {
+.listen a:visited {
     text-decoration: none;
     color: #009E28;
 }
