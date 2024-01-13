@@ -39,7 +39,7 @@ h1 img {
     color: black;
 }
 
-.date {
+.created_at {
     color: rgb(120, 120, 120);
 }
 
@@ -48,6 +48,9 @@ h2 {
 }
 
 .descrip {
+    word-wrap: break-word;
+    white-space: pre-line;
+    box-sizing: border-box;
     color: rgb(80, 80, 80);
 }
 

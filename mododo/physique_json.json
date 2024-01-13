@@ -1,0 +1,25 @@
+{
+  "width": 314,
+  "height": 297,
+  "cx": [
+    [ "POST", 60 ],
+    [ "IS", 162 ],
+    [ "CATEGORY", 256 ],
+    [ "COMMENT", 60 ],
+    [ "HAS", 162 ]
+  ],
+  "cy": [
+    [ "POST", 85 ],
+    [ "IS", 85 ],
+    [ "CATEGORY", 85 ],
+    [ "COMMENT", 237 ],
+    [ "HAS", 237 ]
+  ],
+  "shift": [
+    [ "IS,POST,0", 0 ],
+    [ "IS,CATEGORY,0", 0 ],
+    [ "HAS,COMMENT,0", 0 ],
+    [ "HAS,POST,0", 0 ]
+  ],
+  "ratio": []
+}
