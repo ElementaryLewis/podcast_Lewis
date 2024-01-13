@@ -11,11 +11,11 @@ $query = $pdo->prepare('SELECT num_post, title, descrip, descrip_short, audio_li
 $query->bindValue('num_post', $_GET['num_post'], PDO::PARAM_STR);
 $query->execute();
 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
-/*
+
 if (empty($_GET['num_post']) ^ $_GET['num_post'] == 0) {
     header('Location: 404.php');
     die;
-}*/
+}
 ?>
 
 <!DOCTYPE html>
