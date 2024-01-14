@@ -2,5 +2,9 @@ Post: num_post, title, descrip, descrip_short, audio_link, created_at, updated_a
 Is, 01 Post, 0N Category
 Category: num_category, name, created_at, updated_at
 
+
 Comment: num_comment, body, created_at, updated_at
 Has, 01 Comment, 0N Post
+
+Users: num_user, pseudonyme, avatar, created_at, updated_at
+Write, 0N Users, 0N Comment

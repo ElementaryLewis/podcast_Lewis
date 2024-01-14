@@ -1,18 +1,12 @@
 <?php
 
-$pdo = new PDO('mysql:host=localhost;dbname=blog', 'root', '+Koppai1889');
+include './src/function.php';
+$num_post = $_GET['num_post'];
+$posts = getPodcastsWithCategory($num_post);
+$category = getCategory();
+$comments = getCommentWithUsers($num_post);
 
-$query = $pdo->prepare('SELECT num_post, title, descrip, descrip_short, audio_link,
-    p.created_at, p.updated_at, p.num_category, name
-    FROM post p
-    LEFT JOIN category c ON p.num_category = c.num_category
-    WHERE num_post=:num_post
-  ');
-$query->bindValue('num_post', $_GET['num_post'], PDO::PARAM_STR);
-$query->execute();
-$posts = $query->fetchAll(PDO::FETCH_ASSOC);
-
-if (empty($_GET['num_post']) ^ $_GET['num_post'] == 0) {
+if ($posts == false) {
     header('Location: 404.php');
     die;
 }
@@ -23,7 +17,7 @@ if (empty($_GET['num_post']) ^ $_GET['num_post'] == 0) {
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="wnum_postth=device-wnum_postth, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
         <?php foreach ($posts as $post): ?>
             <?= $post['title'] ?>
@@ -58,33 +52,65 @@ if (empty($_GET['num_post']) ^ $_GET['num_post'] == 0) {
         <?php endforeach ?>
     <?php endif ?>
 
-    <div>
-        <?php if (!empty($status)): ?>
-            <p>
-                <?= $status ?>
-            </p>
-        <?php endif ?>
-        <form action="update.php?num_post=<?= $post['num_post'] ?>" method="post"
-            style="display: inline-flex; flex-direction: column">
-            <label for="title">Podcast Title</label>
-            <input type="text" name="title" id="title" value="<?= $post['title'] ?>">
-            <label for="descrip_short">Short Description</label>
-            <textarea name="descrip_short" id="descrip_short" cols="30"
-                rows="5"><?= $post['descrip_short'] ?></textarea>
-            <label for="descrip">Description</label>
-            <textarea name="descrip" id="descrip" cols="30" rows="10"><?= $post['descrip'] ?></textarea>
-            <select name="num_category" id="num_category">
-                <?php foreach ($posts as $post): ?>
-                    <option value="<?= htmlspecialchars($post['num_category']) ?>">
-                        <?= htmlspecialchars($post['name']) ?>
-                    </option>
-                <?php endforeach ?>
-            </select>
-            <label for="audio_link">Audio Link</label>
-            <textarea name="audio_link" id="audio_link" cols="30" rows="2"><?= $post['audio_link'] ?></textarea>
-            <input type="submit" value="Edit">
-        </form>
-    </div>
+    <form class="podcast_create" action="update.php?num_post=<?= $post['num_post'] ?>" method="post">
+        <p></p>
+        <label class="create" for="title">Podcast Title</label>
+        <input type="text" name="title" id="title" value="<?= $post['title'] ?>">
+        <label class="create" for="title">Category</label>
+        <select name="num_category" id="num_category">
+            <?php foreach ($posts as $post): ?>
+                <option value="<?= htmlspecialchars($post['num_category']) ?>">
+                    <?= htmlspecialchars($post['name']) ?>
+                </option>
+            <?php endforeach ?>
+        </select>
+        <label class="create" for="descrip_short">Short Description</label>
+        <textarea name="descrip_short" id="descrip_short" rows="5"><?= $post['descrip_short'] ?></textarea>
+        <label class="create" for="descrip">Description</label>
+        <textarea name="descrip" id="descrip" rows="10"><?= $post['descrip'] ?></textarea>
+        <label class="create" for="audio_link">Audio Link</label>
+        <input name="audio_link" id="audio_link" value="<?= $post['audio_link'] ?>">
+        <?= $post['audio_link'] ?>
+        <p></p>
+        <input class="button" type="submit" value="Edit">
+        <p></p>
+    </form>
+
+    <?php
+
+    ?>
+
+    <p>Commentary</p>
+    <?php if ($comments == false): ?>
+        <p><i>There is no comment.</i></p>
+    <?php else: ?>
+        <?php foreach ($comments as $comment): ?>
+            <form class="podcast" action="delete_comment.php?num_comment=<?= $comment['num_comment'] ?>" method="post">
+                <div class="user">
+                    <p class="pseudo">
+                        <?= $comment['pseudonyme'] ?>
+                    </p>
+                    <img class="avatar" alt="<?= $comment['pseudonyme'] ?>" src="$comment['avatar']">
+                </div>
+                <input class="delete" type="image" src="./bin.PNG">
+                <time class="created_at" datetime="<?= htmlspecialchars($comment['created_at']) ?>">
+                    <?= htmlspecialchars($comment['created_at']) ?>
+                </time>
+                <pre class="descrip"> <?= htmlspecialchars($comment['body']) ?> </pre>
+            </form>
+        <?php endforeach ?>
+    <?php endif ?>
+
+    <p>Write Comment</p>
+    <form class="podcast_create" action="create_comment.php?num_post=<?= $_GET['num_post'] ?> " method="post">
+        <p></p>
+        <label class="create" for="body">Comment</label>
+        <textarea name="body" id="body" rows="5"></textarea>
+        <p></p>
+        <input class="button" type="submit" value="Send Comment">
+        <p></p>
+    </form>
+
 </body>
 
 </html>

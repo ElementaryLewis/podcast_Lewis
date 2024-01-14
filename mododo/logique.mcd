@@ -1,11 +1,18 @@
 %%mocodo
 :
 Post: num_post, title, descrip, descrip_short, audio_link, created_at, updated_at, #num_category > Category > num_category
-:
+:::
 Category: num_category, name, created_at, updated_at
 :
 
 
 :
 Comment: num_comment, body, created_at, updated_at, #num_post > Post > num_post
+:::::
+
+
+:
+Users: num_user, pseudonyme, avatar, created_at, updated_at
+:
+Write: #num_user > Users > num_user, _#num_comment > Comment > num_comment
 :::
