@@ -1,19 +1,37 @@
 <?php
 
-function getPDO($root, $password)
+function getPDO($db, $root, $password)
 {
-    $pdo = new PDO('mysql:host=localhost;dbname=blog', $root, $password);
+    $pdo = new PDO('mysql:host=localhost;dbname=' . $db, $root, $password);
     return $pdo;
+}
+
+function getCountPage()
+{
+    $con = mysqli_connect("localhost", "root", "+Koppai1889", "blog");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        die();
+    }
+
+    $result_count = mysqli_query(
+        $con,
+        'SELECT COUNT(*) As total_records FROM `post`'
+    );
+    $total_records = mysqli_fetch_array($result_count);
+    $total_records = $total_records['total_records'];
+
+    return $total_records;
 }
 
 function getPodcastsWithCategory($num_post)
 {
-    $pdo = getPDO('root', '+Koppai1889');
+    $pdo = getPDO('blog', 'root', '+Koppai1889');
     if (!empty($_GET['search'])) {
 
         $query = $pdo->prepare
         ('SELECT num_post, title, descrip, descrip_short, audio_link,
-      p.created_at, p.updated_at, p.num_category, name
+      p.created_at, p.updated_at, p.num_category, c.name
         FROM post p
         LEFT JOIN category c ON p.num_category = c.num_category
         WHERE title LIKE :search
@@ -54,6 +72,7 @@ function getPodcastsWithCategory($num_post)
       p.created_at, p.updated_at, p.num_category, name
         FROM post p
         LEFT JOIN category c ON p.num_category = c.num_category
+        ORDER BY num_post
         LIMIT 20 
         ');
         $posts = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -66,11 +85,10 @@ function getPodcastsWithCategory($num_post)
 
 function getCategory()
 {
-    $pdo = getPDO('root', '+Koppai1889');
+    $pdo = getPDO('blog', 'root', '+Koppai1889');
     $query = $pdo->query
-    ('SELECT DISTINCT p.num_category, name
-            FROM post p
-            LEFT JOIN category c ON p.num_category = c.num_category
+    ('SELECT DISTINCT num_category, name
+            FROM category
             ');
     $category = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -79,7 +97,7 @@ function getCategory()
 
 function getCommentWithUsers($num_post)
 {
-    $pdo = getPDO('root', '+Koppai1889');
+    $pdo = getPDO('blog', 'root', '+Koppai1889');
     $query = $pdo->prepare('SELECT m.num_comment, body, m.created_at, m.updated_at,
     m.num_post, m.num_user, pseudonyme, avatar
     FROM `comment` m

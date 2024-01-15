@@ -90,7 +90,7 @@ if ($posts == false) {
                     <p class="pseudo">
                         <?= $comment['pseudonyme'] ?>
                     </p>
-                    <img class="avatar" alt="<?= $comment['pseudonyme'] ?>" src="$comment['avatar']">
+                    <img class="avatar" alt="<?= $comment['pseudonyme'] ?>" src="<?= $comment['avatar'] ?>">
                 </div>
                 <input class="delete" type="image" src="./bin.PNG">
                 <time class="created_at" datetime="<?= htmlspecialchars($comment['created_at']) ?>">
