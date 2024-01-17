@@ -1,8 +1,16 @@
 <?php
 
 include './src/function.php';
-$posts = getPodcastsWithCategory(null);
-$category = getCategory();
+$pdo = getPDO('podcast', 'root', '+Koppai1889');
+
+if (!empty($_GET['search'])) {
+  $search_post = $_GET['search'];
+} else {
+  $search_post = null;
+}
+
+$posts = getPodcastsWithCategories($pdo, $search_post);
+$category = getCategory($pdo);
 
 if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
   $page_no = $_GET['page_no'];

@@ -1,10 +1,12 @@
 <?php
 
 include './src/function.php';
+$pdo = getPDO('podcast', 'root', '+Koppai1889');
+
 $num_post = $_GET['num_post'];
-$posts = getPodcastsWithCategory($num_post);
-$category = getCategory();
-$comments = getCommentWithUsers($num_post);
+$posts = getPodcastsWithCategory($pdo, $num_post);
+$category = getCategory($pdo);
+$comments = getCommentWithUsers($pdo, $num_post);
 
 if ($posts == false) {
     header('Location: 404.php');
@@ -70,7 +72,6 @@ if ($posts == false) {
         <textarea name="descrip" id="descrip" rows="10"><?= $post['descrip'] ?></textarea>
         <label class="create" for="audio_link">Audio Link</label>
         <input name="audio_link" id="audio_link" value="<?= $post['audio_link'] ?>">
-        <?= $post['audio_link'] ?>
         <p></p>
         <input class="button" type="submit" value="Edit">
         <p></p>

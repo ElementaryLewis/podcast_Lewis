@@ -8,7 +8,7 @@ function getPDO($db, $root, $password)
 
 function getCountPage()
 {
-    $con = mysqli_connect("localhost", "root", "+Koppai1889", "blog");
+    $con = mysqli_connect("localhost", "root", "+Koppai1889", "podcast");
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         die();
@@ -24,10 +24,10 @@ function getCountPage()
     return $total_records;
 }
 
-function getPodcastsWithCategory($num_post)
+function getPodcastsWithCategories($pdo, $search_post)
 {
-    $pdo = getPDO('blog', 'root', '+Koppai1889');
-    if (!empty($_GET['search'])) {
+
+    if (!empty($search_post)) {
 
         $query = $pdo->prepare
         ('SELECT num_post, title, descrip, descrip_short, audio_link,
@@ -39,11 +39,30 @@ function getPodcastsWithCategory($num_post)
         LIMIT 20
         ');
 
-        $query->bindValue('search', '%' . $_GET['search'] . '%', PDO::PARAM_STR);
+        $query->bindValue('search', '%' . $search_post . '%', PDO::PARAM_STR);
         $query->execute();
 
         $posts = $query->fetchAll(PDO::FETCH_ASSOC);
-    } else if (!empty($num_post)) {
+    } else if (empty($num_post)) {
+        $query = $pdo->query
+        ('SELECT num_post, title, descrip, descrip_short, audio_link,
+      p.created_at, p.updated_at, p.num_category, name
+        FROM post p
+        LEFT JOIN category c ON p.num_category = c.num_category
+        ORDER BY num_post
+        LIMIT 20 
+        ');
+        $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+
+    return $posts;
+}
+
+function getPodcastsWithCategory($pdo, $num_post)
+{
+    if (!empty($num_post)) {
         $query = $pdo->prepare('SELECT num_post, title, descrip, descrip_short, audio_link,
         p.created_at, p.updated_at, p.num_category, name
         FROM post p
@@ -66,16 +85,6 @@ function getPodcastsWithCategory($num_post)
         ) {
             return false;
         }
-    } else if (empty($num_post)) {
-        $query = $pdo->query
-        ('SELECT num_post, title, descrip, descrip_short, audio_link,
-      p.created_at, p.updated_at, p.num_category, name
-        FROM post p
-        LEFT JOIN category c ON p.num_category = c.num_category
-        ORDER BY num_post
-        LIMIT 20 
-        ');
-        $posts = $query->fetchAll(PDO::FETCH_ASSOC);
     } else {
         return false;
     }
@@ -83,9 +92,8 @@ function getPodcastsWithCategory($num_post)
     return $posts;
 }
 
-function getCategory()
+function getCategory($pdo)
 {
-    $pdo = getPDO('blog', 'root', '+Koppai1889');
     $query = $pdo->query
     ('SELECT DISTINCT num_category, name
             FROM category
@@ -95,9 +103,8 @@ function getCategory()
     return $category;
 }
 
-function getCommentWithUsers($num_post)
+function getCommentWithUsers($pdo, $num_post)
 {
-    $pdo = getPDO('blog', 'root', '+Koppai1889');
     $query = $pdo->prepare('SELECT m.num_comment, body, m.created_at, m.updated_at,
     m.num_post, m.num_user, pseudonyme, avatar
     FROM `comment` m
@@ -114,4 +121,3 @@ function getCommentWithUsers($num_post)
     return $comments;
 }
 
-?>
